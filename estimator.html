@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VerdeLedger Carbon Estimator — generate a preliminary operational carbon output approximation based on your facility power consumption and fleet mileage.">
+        <meta property="og:title" content="VerdeLedger // Integrated Sustainability Accounting">
+    <meta property="og:description" content="VerdeLedger Analytics — integrated sustainability accounting that unifies corporate carbon ledger tracking with financial reporting for enterprise organizations.">
+    <meta property="og:image" content="favicon.svg">
+    <meta property="og:type" content="website">
+    <title>VerdeLedger // Carbon Estimator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="minimalist.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+                        <a href="index.html" class="site-brand">
+                <img src="favicon.svg" alt="Logo" width="20" height="20" style="vertical-align: middle; margin-right: 6px;">
+                Verde<span>Ledger</span>
+            </a>
+            <button class="hamburger" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Overview</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-trigger active">System ▾</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="feature-carbon.html">Carbon Logic</a></li>
+                            <li><a href="feature-finance.html">Capital Ledger</a></li>
+                            <li><a href="estimator.html" class="active">Carbon Estimator</a></li>
+                            <li><a href="compliance.html">Standards</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-trigger">Company ▾</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html">Corporate Blueprint</a></li>
+                            <li><a href="impact.html">Case Log</a></li>
+                            <li><a href="resources.html">Publications</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="pricing.html">Plans</a></li>
+                    <li class="nav-cta"><a href="contact.html">Enterprise Gateway</a></li>
+                                    <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
+                </ul>
+            </nav>
+        </div>
+        </header>
+
+    <div class="scroll-progress-container">
+        <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+    </div>
+
+    <main class="page-body">
+        <nav aria-label="breadcrumb" class="breadcrumb fade-in-up">
+            <a href="index.html">System</a> <span>/</span>
+            <span class="current">Carbon Estimator</span>
+        </nav>
+
+        <div class="card fade-in-up" style="max-width: 660px;">
+            <span class="page-tag">Tools</span>
+            <div class="page-header">
+                <h2>Baseline Carbon Estimator</h2>
+                <p>Generate a preliminary operational environmental output index approximation based on your facility energy usage and fleet data.</p>
+            </div>
+
+            <form id="estimator-form" class="clean-form" novalidate>
+                <div class="form-field">
+                    <label for="monthly-power">Estimated Monthly Facility Power (kWh):</label>
+                    <input type="number" id="monthly-power" name="power" min="0" required placeholder="e.g. 5000">
+                </div>
+                <div class="form-field">
+                    <label for="fleet-miles">Estimated Monthly Fleet Run-time (Miles):</label>
+                    <input type="number" id="fleet-miles" name="miles" min="0" required placeholder="e.g. 1200">
+                </div>
+                <button type="submit" class="submit-btn" id="calc-btn">Run Calculations <span class="arrow">→</span></button>
+            </form>
+
+            <div class="estimate-result" id="result-box" aria-live="polite">
+                <!-- Empty State -->
+                <div class="empty-state" id="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <p>Enter your facility and fleet data above to generate your preliminary carbon index approximation.</p>
+                </div>
+
+                <div class="result-label">Estimated Monthly CO&#8322; Emissions</div>
+                <div class="result-value" id="result-value">—</div>
+                <div class="result-label" id="result-breakdown" style="margin-top: 6px;"></div>
+
+                <!-- Conditional recommendation tiers -->
+                <div class="recommendation-tier tier-low" id="tier-low">
+                    <strong>🟢 Low Emissions Profile</strong><br>
+                    Your operational carbon output is within efficient parameters. Consider our <a href="pricing.html">Growth Tier</a> for ongoing monitoring and optimization tracking.
+                </div>
+                <div class="recommendation-tier tier-medium" id="tier-medium">
+                    <strong>🟡 Moderate Emissions Profile</strong><br>
+                    Your footprint suggests significant optimization potential. Our <a href="pricing.html">Scale Matrix</a> plan can help identify reduction pathways across Scope 1–3.
+                </div>
+                <div class="recommendation-tier tier-high" id="tier-high">
+                    <strong>🔴 High Emissions Profile</strong><br>
+                    Your organization would benefit from a comprehensive audit. <a href="contact.html">Contact our enterprise team</a> for a custom deployment and full supply chain analysis.
+                </div>
+
+                <div class="callout" style="margin-top: 18px;">
+                    This is a preliminary estimate using standard emission factors. <a href="contact.html">Contact us</a> for a full operational audit.
+                </div>
+            </div>
+        </div>
+    </main>
+
+        <footer>
+        <div class="footer-rich">
+            <div class="footer-col">
+                <a href="index.html" class="site-brand" style="margin-bottom: 16px; display: inline-block;">
+                    <img src="favicon.svg" alt="Logo" width="18" height="18" style="vertical-align: middle; margin-right: 4px;">
+                    Verde<span>Ledger</span>
+                </a>
+                <p style="font-size: 13px; color: var(--txt-secondary);">Unified sustainability accounting and financial reporting for modern enterprises.</p>
+            </div>
+            <div class="footer-col">
+                <h4>System</h4>
+                <ul>
+                    <li><a href="feature-carbon.html">Carbon Logic</a></li>
+                    <li><a href="feature-finance.html">Capital Ledger</a></li>
+                    <li><a href="estimator.html">Carbon Estimator</a></li>
+                    <li><a href="compliance.html">Standards</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">Corporate Blueprint</a></li>
+                    <li><a href="impact.html">Case Log</a></li>
+                    <li><a href="pricing.html">Plans</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <form class="newsletter-form" id="newsletter-form" style="flex-direction: row; align-items: stretch; margin-bottom: 8px;">
+                    <input type="email" placeholder="Email address..." required style="width: 100%; border-radius: var(--r-sm) 0 0 var(--r-sm);">
+                    <button type="submit" style="border-radius: 0 var(--r-sm) var(--r-sm) 0;">Go</button>
+                </form>
+                <p id="nl-message" style="font-size: 11px; min-height: 14px;"></p>
+            </div>
+        </div>
+        <div class="footer-inner" style="border-top: none; padding-top: 0;">
+            <div class="footer-bottom" style="width: 100%;">
+                <p>&copy; 2026 VerdeLedger Systems. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+
+    <script src="main.js"></script>
+</body>
+</html>
