@@ -1,0 +1,2 @@
+# Enterprise-Carbon-Tracking-ESG-Reporting-Infrastructure-Mobile-Desktop-Webpage-
+🌿 Welcome to VerdeLedger! 🚀 This full-stack web application is designed to help organizations seamlessly bridge the gap between financial stability and environmental responsibility. By providing automated reporting pipelines and intuitive dashboards, VerdeLedger balances between bottom-line growth and carbon tracking actionable and clear. 🌍⚖️
