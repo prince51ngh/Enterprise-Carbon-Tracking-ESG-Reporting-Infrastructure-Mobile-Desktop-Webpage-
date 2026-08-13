@@ -1,3 +1,6 @@
+import { db } from './db.js';
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── VIDEO PLAYBACK GUARANTEE ───────────────── */
@@ -122,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeEls.forEach(el => revealObserver.observe(el));
   }
 
+
   /* ═════════════════════════════════════════════
      CONTACT FORM — VALIDATION & SUBMISSION
      ═════════════════════════════════════════════ */
@@ -205,23 +209,27 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const response = await fetch('contact.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+        // --- NEW FIREBASE SUBMISSION LOGIC ---
+        const docRef = await addDoc(collection(db, "contacts"), {
+          name: formData.rep_name,
+          email: formData.rep_email,
+          phone: formData.phone,
+          scope: formData.scope,
+          details: formData.details,
+          timestamp: new Date()
         });
-        const result = await response.json();
 
-        if (response.ok) {
-          showToast(toast, 'success', '✓ Your consultation request has been submitted successfully! We will contact you shortly.');
-          contactForm.reset();
-          Object.keys(fields).forEach(key => {
-            if (fields[key].el) { fields[key].el.classList.remove('valid', 'invalid'); }
-          });
-        } else {
-          showToast(toast, 'error', result.message || 'Submission failed. Please try again.');
-        }
+        console.log("Contact document written with ID: ", docRef.id);
+        
+        // Success UI updates
+        showToast(toast, 'success', '✓ Your consultation request has been submitted successfully! We will contact you shortly.');
+        contactForm.reset();
+        Object.keys(fields).forEach(key => {
+          if (fields[key].el) { fields[key].el.classList.remove('valid', 'invalid'); }
+        });
+
       } catch (err) {
+        console.error("Error adding document: ", err);
         showToast(toast, 'error', 'Network error — please check your connection and try again.');
       }
 
@@ -285,15 +293,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tierMed) tierMed.classList.remove('show');
       if (tierHigh) tierHigh.classList.remove('show');
 
-      // Submit to backend
+      // Submit to backend (Firebase)
       try {
-        await fetch('estimator.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ monthly_power_kwh: power, fleet_miles: miles, total_co2_kg: totalCO2 })
+        await addDoc(collection(db, "estimations"), {
+          monthly_power_kwh: power,
+          fleet_miles: miles,
+          total_co2_kg: totalCO2,
+          timestamp: new Date()
         });
       } catch (err) {
-        // Silent fail
+        // Silent fail (as originally intended)
+        console.error("Estimator save error:", err);
       }
       
       setTimeout(() => {
