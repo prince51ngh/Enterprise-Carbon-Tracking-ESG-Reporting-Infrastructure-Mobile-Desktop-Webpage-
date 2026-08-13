@@ -1,31 +1,20 @@
-/* ═══════════════════════════════════════════════════════════════
-   db.js — MySQL Connection Pool
-   Uses mysql2 with promise-based API for async/await support
-   ═══════════════════════════════════════════════════════════════ */
+// Import core Firebase and Firestore functionalities from the CDN
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const mysql = require('mysql2/promise');
-require('dotenv').config();
+// Your exact configuration from the Firebase console
+const firebaseConfig = {
+  apiKey: "AIzaSyCfUofxNrF-Ryo7OYcLGNU7w49hJvvemQ",
+  authDomain: "verdeledger-84601.firebaseapp.com",
+  projectId: "verdeledger-84601",
+  storageBucket: "verdeledger-84601.firebasestorage.app",
+  messagingSenderId: "524558330324",
+  appId: "1:524558330324:web:fde914adc7dd1c58694e41",
+  measurementId: "G-0MC5M0QNEX"
+};
 
-const pool = mysql.createPool({
-  host:     process.env.DB_HOST || 'localhost',
-  user:     process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'verdeledger_db',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+// Initialize the Firebase App
+const app = initializeApp(firebaseConfig);
 
-// Test the connection on startup
-pool.getConnection()
-  .then(conn => {
-    console.log('✓ MySQL connected — database:', process.env.DB_NAME || 'verdeledger_db');
-    conn.release();
-  })
-  .catch(err => {
-    console.error('✗ MySQL connection failed:', err.message);
-    console.error('  Make sure MySQL is running and the database exists.');
-    console.error('  Run setup-database.sql to create the database and tables.');
-  });
-
-module.exports = pool;
+// Initialize and export the Firestore Database so it can be used in your other files
+export const db = getFirestore(app);
