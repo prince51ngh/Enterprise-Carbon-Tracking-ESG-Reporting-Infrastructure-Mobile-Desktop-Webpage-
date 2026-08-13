@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── HAMBURGER MENU ────────────────────────── */
+ /* ── HAMBURGER MENU ────────────────────────── */
   const hamburger = document.querySelector('.hamburger');
   const nav       = document.querySelector('nav');
   if (hamburger && nav) {
@@ -40,9 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.classList.toggle('open');
       document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
     });
+    
     // Close menu when a nav link is clicked (mobile)
     nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        // NEW FIX: If the link is a dropdown toggle (href="#"), don't close the menu!
+        if (link.getAttribute('href') === '#') {
+          e.preventDefault(); // Prevents the screen from jumping to the top of the page
+          return; // Exits this function early so the menu stays open
+        }
+        
+        // For all other normal links, close the menu
         hamburger.classList.remove('active');
         nav.classList.remove('open');
         document.body.style.overflow = '';
